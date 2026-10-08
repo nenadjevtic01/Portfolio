@@ -1,0 +1,14 @@
+<div class="switch" role="group" [attr.aria-label]="i18n.t().nav.language">
+  @for (lang of languages; track lang) {
+    <a
+      class="switch__option"
+      [routerLink]="paths[lang]"
+      [class.switch__option--active]="i18n.lang() === lang"
+      [attr.aria-current]="i18n.lang() === lang ? 'page' : null"
+      [attr.hreflang]="lang"
+      [attr.lang]="lang"
+    >
+      {{ lang.toUpperCase() }}
+    </a>
+  }
+</div>

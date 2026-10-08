@@ -1,0 +1,38 @@
+@let t = i18n.t().contact;
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact">
+      <h2 class="section__title">{{ t.title }}</h2>
+      <p class="contact__text">{{ t.text }}</p>
+
+      <div class="contact__actions">
+        <button class="button button--primary" type="button" (click)="sendEmail()">
+          <app-icon name="mail" />
+          {{ t.send }}
+        </button>
+        <button class="button" type="button" (click)="copyEmail()">
+          <app-icon [name]="copied() ? 'check' : 'copy'" />
+          {{ copied() ? t.copied : t.copy }}
+        </button>
+      </div>
+
+      @if (email(); as address) {
+        <p class="contact__address">{{ address }}</p>
+      }
+
+      @if (socials.length) {
+        <ul class="contact__socials">
+          @for (link of socials; track link.url) {
+            <li>
+              <a [href]="link.url" target="_blank" rel="noopener">
+                <app-icon [name]="link.icon" />
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</section>

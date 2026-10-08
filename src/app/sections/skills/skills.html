@@ -1,0 +1,18 @@
+<section class="section" id="skills">
+  <div class="container">
+    <h2 class="section__title">{{ i18n.t().skills.title }}</h2>
+
+    <div class="skills">
+      @for (group of groups; track $index) {
+        <div class="skills__group">
+          <h3 class="skills__title">{{ i18n.localize(group.title) }}</h3>
+          <ul class="tags">
+            @for (skill of group.items; track $index) {
+              <li class="tag tag--large">{{ i18n.localize(skill) }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>

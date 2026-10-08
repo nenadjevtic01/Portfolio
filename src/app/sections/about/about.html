@@ -1,0 +1,22 @@
+<section class="section" id="about">
+  <div class="container">
+    <h2 class="section__title">{{ i18n.t().about.title }}</h2>
+
+    <div class="about">
+      <div class="about__text">
+        @for (paragraph of about[i18n.lang()]; track $index) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+
+      <dl class="about__highlights">
+        @for (item of highlights; track $index) {
+          <div class="about__highlight">
+            <dt>{{ i18n.localize(item.label) }}</dt>
+            <dd>{{ i18n.localize(item.value) }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+  </div>
+</section>

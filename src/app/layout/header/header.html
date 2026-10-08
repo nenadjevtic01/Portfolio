@@ -1,0 +1,41 @@
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__logo" [href]="i18n.homePath() + '#top'" (click)="closeMenu()">{{ name }}</a>
+
+    <nav
+      id="main-nav"
+      class="header__nav"
+      [class.header__nav--open]="menuOpen()"
+      [attr.aria-label]="i18n.t().nav.label"
+    >
+      @for (link of links(); track link.href) {
+        <a [href]="link.href" (click)="closeMenu()">{{ link.label }}</a>
+      }
+    </nav>
+
+    <div class="header__actions">
+      <app-language-switch />
+
+      <button
+        class="icon-button"
+        type="button"
+        (click)="toggleTheme()"
+        [attr.aria-label]="i18n.t().nav.toggleTheme"
+      >
+        <app-icon class="theme-icon theme-icon--sun" name="sun" />
+        <app-icon class="theme-icon theme-icon--moon" name="moon" />
+      </button>
+
+      <button
+        class="icon-button header__menu-button"
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="main-nav"
+        [attr.aria-label]="i18n.t().nav.toggleMenu"
+      >
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+  </div>
+</header>

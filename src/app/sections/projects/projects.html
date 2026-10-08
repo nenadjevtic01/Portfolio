@@ -1,0 +1,14 @@
+<section class="section" id="projects">
+  <div class="container">
+    <h2 class="section__title">{{ i18n.t().projects.title }}</h2>
+    <p class="section__lead">{{ i18n.t().projects.lead }}</p>
+
+    <ul class="projects">
+      @for (project of projects; track $index) {
+        <li>
+          <app-project-card [project]="project" />
+        </li>
+      }
+    </ul>
+  </div>
+</section>

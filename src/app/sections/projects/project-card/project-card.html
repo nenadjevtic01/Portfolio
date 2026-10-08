@@ -1,0 +1,36 @@
+@let p = project();
+@let title = i18n.localize(p.title);
+
+<article class="card">
+  @if (p.image) {
+    <img class="card__image" [src]="p.image" [alt]="title" loading="lazy" />
+  }
+
+  <div class="card__body">
+    <h3 class="card__title">{{ title }}</h3>
+    <p class="card__description">{{ i18n.localize(p.description) }}</p>
+
+    <ul class="tags">
+      @for (tech of p.tech; track tech) {
+        <li class="tag">{{ tech }}</li>
+      }
+    </ul>
+
+    @if (p.repoUrl || p.demoUrl) {
+      <div class="card__links">
+        @if (p.demoUrl) {
+          <a [href]="p.demoUrl" target="_blank" rel="noopener">
+            {{ i18n.t().projects.demo }}
+            <app-icon name="external" />
+          </a>
+        }
+        @if (p.repoUrl) {
+          <a [href]="p.repoUrl" target="_blank" rel="noopener">
+            {{ i18n.t().projects.source }}
+            <app-icon name="github" />
+          </a>
+        }
+      </div>
+    }
+  </div>
+</article>

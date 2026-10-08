@@ -1,0 +1,33 @@
+.switch {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.switch__option {
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &--active {
+    color: var(--accent-contrast);
+    background: var(--accent);
+
+    &:hover {
+      color: var(--accent-contrast);
+    }
+  }
+}
