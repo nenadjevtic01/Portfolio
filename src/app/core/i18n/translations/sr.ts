@@ -2,6 +2,7 @@ import { Translation } from './translation';
 
 export const sr: Translation = {
   htmlLang: 'sr-Latn',
+  ogLocale: 'sr_RS',
   meta: {
     description:
       'Portfolio Nenada Jevtića, full-stack developera koji pravi web aplikacije u ASP.NET Core-u i Angularu.',

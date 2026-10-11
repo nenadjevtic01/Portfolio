@@ -29,7 +29,11 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "@fontsource-variable/inter/wght.css",
+              "@fontsource-variable/jetbrains-mono/wght.css",
+              "src/styles.scss"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "static"
           },
@@ -47,7 +51,15 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
             },
             "development": {
               "optimization": false,

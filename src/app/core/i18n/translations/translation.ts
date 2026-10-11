@@ -1,5 +1,6 @@
 export interface Translation {
   htmlLang: string;
+  ogLocale: string;
   meta: {
     description: string;
   };

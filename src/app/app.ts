@@ -6,6 +6,7 @@ import {
   inject,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SeoService } from './core/seo/seo.service';
 import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
 
@@ -25,6 +26,8 @@ export class App {
   private readonly document = inject(DOCUMENT);
 
   constructor() {
+    inject(SeoService);
+
     // Opening a link like /sr#projects scrolls before web fonts load and shift the layout,
     // so scroll to the section again once they are ready.
     afterNextRender(() => {

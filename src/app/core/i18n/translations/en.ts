@@ -2,6 +2,7 @@ import { Translation } from './translation';
 
 export const en: Translation = {
   htmlLang: 'en',
+  ogLocale: 'en_US',
   meta: {
     description:
       'Portfolio of Nenad Jevtić, a full-stack developer building web applications with ASP.NET Core and Angular.',
