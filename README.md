@@ -104,4 +104,12 @@ and deployed automatically, and other branches get their own preview URL.
 | Build output directory | `dist/portfolio/browser` |
 | Node.js version        | from `.node-version`     |
 
-Use `npm run build` rather than `ng build`, so the post-build steps run.
+Use `npm run build` rather than `ng build`, so the post-build steps run. Angular 22 needs Node.js
+22.22.3+ or 24.15+, so `.node-version` pins an exact version.
+
+To try the production build locally with the same headers and redirects as on Cloudflare:
+
+```bash
+npm run build
+npx wrangler pages dev dist/portfolio/browser
+```
