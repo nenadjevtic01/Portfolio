@@ -89,11 +89,19 @@ there when the domain changes.
 - External links open with `rel="noopener"`, and the referrer policy is
   `strict-origin-when-cross-origin`.
 
-Headers that cannot be set from HTML (`frame-ancestors`, HSTS, `X-Content-Type-Options`) depend on
-the hosting provider.
+- HTTP headers that cannot be set from HTML (`frame-ancestors`, HSTS, `X-Content-Type-Options`,
+  `Permissions-Policy` and others) are defined in `public/_headers`.
 
 ## Deployment
 
-`npm run build` outputs a fully static site to `dist/portfolio/browser`, which can be deployed to
-Netlify, Vercel, Cloudflare Pages or GitHub Pages. Use `npm run build` rather than `ng build`, so
-the post-build steps run.
+The site is hosted on Cloudflare Pages, connected to this repository. Every push to `main` is built
+and deployed automatically, and other branches get their own preview URL.
+
+| Setting                | Value                    |
+| ---------------------- | ------------------------ |
+| Framework preset       | None                     |
+| Build command          | `npm run build`          |
+| Build output directory | `dist/portfolio/browser` |
+| Node.js version        | from `.node-version`     |
+
+Use `npm run build` rather than `ng build`, so the post-build steps run.

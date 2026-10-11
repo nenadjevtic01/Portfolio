@@ -2,7 +2,7 @@
  * Public address of the site, without a trailing slash.
  * Used for canonical and hreflang links, Open Graph tags, structured data and the sitemap.
  */
-export const siteUrl = 'https://nenadjevtic01.github.io';
+export const siteUrl = 'https://nenadjevtic.dev';
 
 /** Social preview image in /public, 1200 × 630. */
 export const ogImage = {

@@ -4,6 +4,7 @@ import { App } from './app';
 import { routes } from './app.routes';
 import { pageUrl } from './core/seo/site';
 import { profile } from './data/profile';
+import { decodeEmail } from './shared/utils/email';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -55,6 +56,10 @@ describe('App', () => {
 
   it('should not render the email address in the markup', async () => {
     const page = await render('/');
-    expect(page.innerHTML).not.toContain('@nenadjevtic.dev');
+    const email = decodeEmail(profile.emailEncoded);
+
+    expect(email).toBe('contact@nenadjevtic.dev');
+    expect(page.innerHTML).not.toContain(email);
+    expect(document.head.innerHTML).not.toContain(email);
   });
 });
