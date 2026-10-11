@@ -20,6 +20,8 @@ export interface Profile {
   highlights: { label: LocalizedText; value: LocalizedText }[];
   /** Reversed and base64 encoded, decoded only on click so it never appears in the HTML. */
   emailEncoded: string;
+  /** Profile photo in /public. Remove it to hide the photo. */
+  photo?: { src: string; width: number; height: number };
   /** Put the file in /public (e.g. public/cv.pdf) and set this to '/cv.pdf'. Empty hides the button. */
   cvUrl: string;
   /** Links with an empty url are hidden. */
@@ -62,6 +64,8 @@ export const profile: Profile = {
   ],
 
   emailEncoded: 'dmVkLmNpdHZlamRhbmVuQHRjYXRub2M=',
+
+  photo: { src: '/profile.jpg', width: 460, height: 460 },
 
   cvUrl: '',
 

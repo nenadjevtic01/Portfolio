@@ -125,7 +125,7 @@ export class SeoService {
           jobTitle: role,
           description: this.i18n.localize(profile.tagline),
           url: home,
-          image: new URL(ogImage.path, siteUrl).href,
+          image: new URL(profile.photo?.src ?? ogImage.path, siteUrl).href,
           sameAs: profile.socials.map((link) => link.url).filter(Boolean),
           knowsAbout: profile.skills.flatMap((group) =>
             group.items.map((item) => this.i18n.localize(item)),

@@ -1,43 +1,56 @@
 @let t = i18n.t().hero;
 
 <section class="hero" id="top">
-  <div class="container">
-    <p class="hero__eyebrow">{{ t.greeting }}</p>
-    <h1 class="hero__name">{{ profile.name }}</h1>
-    <p class="hero__role">{{ i18n.localize(profile.role) }}</p>
-    <p class="hero__tagline">{{ i18n.localize(profile.tagline) }}</p>
+  <div class="container hero__layout" [class.hero__layout--with-photo]="profile.photo">
+    <div class="hero__content">
+      <p class="hero__eyebrow">{{ t.greeting }}</p>
+      <h1 class="hero__name">{{ profile.name }}</h1>
+      <p class="hero__role">{{ i18n.localize(profile.role) }}</p>
+      <p class="hero__tagline">{{ i18n.localize(profile.tagline) }}</p>
 
-    <div class="hero__actions">
-      <a class="button button--primary" [href]="i18n.homePath() + '#projects'">
-        {{ t.viewProjects }}
-        <app-icon name="arrow-down" />
-      </a>
-      @if (profile.cvUrl) {
-        <a class="button" [href]="profile.cvUrl" download>
-          {{ t.downloadCv }}
-          <app-icon name="download" />
+      <div class="hero__actions">
+        <a class="button button--primary" [href]="i18n.homePath() + '#projects'">
+          {{ t.viewProjects }}
+          <app-icon name="arrow-down" />
         </a>
-      } @else {
-        <a class="button" [href]="i18n.homePath() + '#contact'">{{ t.getInTouch }}</a>
+        @if (profile.cvUrl) {
+          <a class="button" [href]="profile.cvUrl" download>
+            {{ t.downloadCv }}
+            <app-icon name="download" />
+          </a>
+        } @else {
+          <a class="button" [href]="i18n.homePath() + '#contact'">{{ t.getInTouch }}</a>
+        }
+      </div>
+
+      @if (socials.length) {
+        <ul class="hero__socials">
+          @for (link of socials; track link.url) {
+            <li>
+              <a
+                class="icon-button"
+                [href]="link.url"
+                target="_blank"
+                rel="noopener"
+                [attr.aria-label]="link.label"
+              >
+                <app-icon [name]="link.icon" />
+              </a>
+            </li>
+          }
+        </ul>
       }
     </div>
 
-    @if (socials.length) {
-      <ul class="hero__socials">
-        @for (link of socials; track link.url) {
-          <li>
-            <a
-              class="icon-button"
-              [href]="link.url"
-              target="_blank"
-              rel="noopener"
-              [attr.aria-label]="link.label"
-            >
-              <app-icon [name]="link.icon" />
-            </a>
-          </li>
-        }
-      </ul>
+    @if (profile.photo; as photo) {
+      <img
+        class="hero__photo"
+        [ngSrc]="photo.src"
+        [width]="photo.width"
+        [height]="photo.height"
+        [alt]="profile.name"
+        priority
+      />
     }
   </div>
 </section>

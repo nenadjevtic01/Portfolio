@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LanguageService } from '../../core/i18n/language.service';
 import { profile, visibleSocials } from '../../data/profile';
@@ -5,7 +6,7 @@ import { Icon } from '../../shared/components/icon/icon';
 
 @Component({
   selector: 'app-hero',
-  imports: [Icon],
+  imports: [Icon, NgOptimizedImage],
   templateUrl: './hero.html',
   styleUrl: './hero.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
