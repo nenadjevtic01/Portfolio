@@ -19,6 +19,34 @@
   box-shadow:
     0 0 0 2px var(--accent),
     0 24px 60px -24px color-mix(in srgb, var(--accent) 55%, transparent);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: photo-pulse 3.2s ease-out infinite;
+  }
+}
+
+// A soft ring grows out of the border and fades, while the glow below gets a bit stronger.
+@keyframes photo-pulse {
+  0% {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      0 0 0 2px color-mix(in srgb, var(--accent) 75%, transparent),
+      0 24px 60px -24px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  60% {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      0 0 0 24px color-mix(in srgb, var(--accent) 0%, transparent),
+      0 24px 80px -16px color-mix(in srgb, var(--accent) 95%, transparent);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 2px var(--accent),
+      0 0 0 24px color-mix(in srgb, var(--accent) 0%, transparent),
+      0 24px 60px -24px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
 }
 
 .hero__eyebrow {
