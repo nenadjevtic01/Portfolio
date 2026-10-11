@@ -45,4 +45,9 @@ export const sr: Translation = {
   footer: {
     backToTop: 'Nazad na vrh',
   },
+  notFound: {
+    title: 'Stranica nije pronađena',
+    text: 'Stranica koju tražite ne postoji ili je premeštena.',
+    backHome: 'Nazad na početnu',
+  },
 };

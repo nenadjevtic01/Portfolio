@@ -1,0 +1,10 @@
+@let t = i18n.t().notFound;
+
+<section class="not-found">
+  <div class="container">
+    <p class="not-found__code">404</p>
+    <h1 class="not-found__title">{{ t.title }}</h1>
+    <p class="not-found__text">{{ t.text }}</p>
+    <a class="button button--primary" [routerLink]="i18n.homePath()">{{ t.backHome }}</a>
+  </div>
+</section>

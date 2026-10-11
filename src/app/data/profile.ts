@@ -67,7 +67,7 @@ export const profile: Profile = {
 
   socials: [
     { label: 'GitHub', url: 'https://github.com/nenadjevtic01', icon: 'github' },
-    { label: 'LinkedIn', url: '', icon: 'linkedin' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/nenadjevtic01', icon: 'linkedin' },
   ],
 
   skills: [

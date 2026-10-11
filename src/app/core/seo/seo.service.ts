@@ -1,20 +1,45 @@
 import { DOCUMENT, Injectable, effect, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { profile } from '../../data/profile';
 import { Language, defaultLanguage, languagePaths, languages } from '../i18n/language';
 import { LanguageService } from '../i18n/language.service';
 import { ogImage, pageUrl, siteUrl } from './site';
 
-/** Keeps the document head in sync with the current language. Runs during prerendering too. */
+/** Keeps the document head in sync with the current page and language. Runs during prerendering too. */
 @Injectable({ providedIn: 'root' })
 export class SeoService {
   private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   private readonly i18n = inject(LanguageService);
 
+  /** Undefined until the first navigation ends; until then the prerendered head is already right. */
+  private readonly notFound = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.isNotFoundRoute()),
+    ),
+  );
+
   constructor() {
-    effect(() => this.update(this.i18n.lang()));
+    effect(() => {
+      const notFound = this.notFound();
+      const lang = this.i18n.lang();
+
+      if (notFound === undefined) {
+        return;
+      }
+
+      if (notFound) {
+        this.updateNotFound();
+      } else {
+        this.update(lang);
+      }
+    });
   }
 
   private update(lang: Language): void {
@@ -27,6 +52,7 @@ export class SeoService {
     this.document.documentElement.lang = t.htmlLang;
     this.title.setTitle(title);
 
+    this.meta.removeTag('name="robots"');
     this.meta.updateTag({ name: 'description', content: t.meta.description });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
@@ -47,6 +73,28 @@ export class SeoService {
     this.setLink('alternate', pageUrl(languagePaths[defaultLanguage]), 'x-default');
 
     this.setStructuredData(lang, url, role);
+  }
+
+  /** A missing page must not be indexed or point search engines at a canonical URL. */
+  private updateNotFound(): void {
+    const t = this.i18n.t();
+
+    this.document.documentElement.lang = t.htmlLang;
+    this.title.setTitle(`${t.notFound.title} · ${profile.name}`);
+    this.meta.updateTag({ name: 'robots', content: 'noindex' });
+    this.meta.removeTag('property="og:url"');
+
+    this.document.head
+      .querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang], #structured-data')
+      .forEach((element) => element.remove());
+  }
+
+  private isNotFoundRoute(): boolean {
+    let route = this.router.routerState.snapshot.root;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route.data['notFound'] === true;
   }
 
   private setLink(rel: string, href: string, hreflang?: string): void {

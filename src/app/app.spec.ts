@@ -54,6 +54,16 @@ describe('App', () => {
     expect(person.name).toBe(profile.name);
   });
 
+  it('should show a noindex 404 page in the right language for unknown URLs', async () => {
+    const page = await render('/sr/does-not-exist');
+
+    expect(page.querySelector('h1')?.textContent).toContain('Stranica nije pronađena');
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe(
+      'noindex',
+    );
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
+  });
+
   it('should not render the email address in the markup', async () => {
     const page = await render('/');
     const email = decodeEmail(profile.emailEncoded);

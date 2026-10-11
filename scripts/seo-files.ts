@@ -1,5 +1,6 @@
-// Writes robots.txt and sitemap.xml into the build output. Runs automatically after `npm run build`.
-import { writeFileSync } from 'node:fs';
+// Writes robots.txt and sitemap.xml into the build output and moves the prerendered /404 page to
+// 404.html, which Cloudflare Pages serves with a 404 status. Runs automatically after `npm run build`.
+import { renameSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { defaultLanguage, languagePaths, languages } from '../src/app/core/i18n/language.ts';
 import { pageUrl, siteUrl } from '../src/app/core/seo/site.ts';
@@ -42,4 +43,7 @@ Sitemap: ${siteUrl}/sitemap.xml
 writeFileSync(join(outDir, 'sitemap.xml'), sitemap);
 writeFileSync(join(outDir, 'robots.txt'), robots);
 
-console.log('Generated sitemap.xml and robots.txt');
+renameSync(join(outDir, '404', 'index.html'), join(outDir, '404.html'));
+rmSync(join(outDir, '404'), { recursive: true });
+
+console.log('Generated sitemap.xml, robots.txt and 404.html');

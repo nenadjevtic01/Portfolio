@@ -42,4 +42,9 @@ export interface Translation {
   footer: {
     backToTop: string;
   };
+  notFound: {
+    title: string;
+    text: string;
+    backHome: string;
+  };
 }
